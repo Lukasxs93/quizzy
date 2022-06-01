@@ -1,11 +1,13 @@
 
-
+// getting the data from opentdb.com
 fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
-
+// unpacking the jason file 
 .then(response =>  response.json() )
 
-.then(data =>  {
+.then(data =>  { 
+  // for each object in the data we perform an action 
     for (let i = 0; i < data.results.length; i++) {
+  // makeid generates a unique id to be added to the signle element in the object
       function makeid(length) {
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -16,7 +18,7 @@ fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
        }
        return result;
     }
-        
+  // shuffle rearanges the order of the answers so they are less predictable   
     function shuffle(answers){
             let currentIndex = answers.length;
             let randomIndex;
@@ -27,19 +29,21 @@ fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
             }
             return answers;
     }  
-
+  // validate checks if the answer is correct or incorrect and injects a class to the button to style and produce feedback
     function validate(idValue){
       let elem = document.getElementById(idValue).innerHTML;
        if(solutions.includes(elem)){
-          document.getElementById(idValue).className += ' correct';
+          document.getElementById(idValue).classList.toggle('correct');
        }else{
-        document.getElementById(idValue).className +=' incorrect';
+        document.getElementById(idValue).classList.toggle('incorrect');
        }
     }
          
         let wrongAnswers = data.results[i].incorrect_answers;
         let rightAnswer = data.results[i].correct_answer;
+        // creating an array of  all answers (no matter if correct or incorrect )
          wrongAnswers.push(rightAnswer);
+        // creating an array of all the right answers for validation purposes
         let solutions = [];
         solutions.push(rightAnswer);
         shuffle(wrongAnswers);
@@ -53,10 +57,11 @@ fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
         let questionItem = document.createElement('div');
        
         questionItem.className='question';
-
+       //generating an array of 4 ids to be assigned to each answer. 
         var idArray = [makeid(5),makeid(5),makeid(5),makeid(5)]
         
-        
+        //generating html that displays a question and 4 andswers, the question has  calss "question" while the div containint the answers has 
+        //class "answer_container", every answer has a class "answer " and unique id given by idArray.
         questionItem.innerHTML =`
         
         <h2>${ques}</h2><br>
@@ -70,6 +75,7 @@ fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
         
         
         document.body.appendChild(questionItem);       
+        //adding event listener to the buttons.
         document.getElementById(idArray[0]).addEventListener('click',validate.bind(this,idArray[0]),false);
         document.getElementById(idArray[1]).addEventListener('click',validate.bind(this,idArray[1]),false);
         document.getElementById(idArray[2]).addEventListener('click',validate.bind(this,idArray[2]),false);
