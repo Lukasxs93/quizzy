@@ -1,11 +1,53 @@
 let solutions = [];
 let score=0;
+function findSiblings(idValue){
+  let siblings = [];
+       let sibling = document.getElementById(idValue).parentNode.firstChild;
+       while(sibling){
+        if (sibling.nodeType === 1 && sibling !== idValue) {
+          siblings.push(sibling.id);
+      }
+      sibling = sibling.nextSibling;             
+  }return siblings;
+}
+function validate(idValue){
+  let elem = document.getElementById(idValue).innerHTML;
+   if(solutions.includes(elem)){
+      document.getElementById(idValue).classList.toggle('correct');
+      score ++ ;
+      let scoreItem = document.createElement('div');
+      let siblings=findSiblings(idValue); 
+      for(let i = 0; i< siblings.length; i++){
+        document.getElementById(siblings[i]).disabled= true;
+      }      
+     if(document.getElementById('score') !== null){
+      document.getElementById('score').remove();      
+     }
+     
+    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+    document.body.appendChild(scoreItem);
+      
+   }else{
+    document.getElementById(idValue).classList.toggle('incorrect');
+    score-=0.5;
+    let scoreItem = document.createElement('div');
+    if(document.getElementById('score') !== null){
+      document.getElementById('score').remove();
+    }
+    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+    document.body.appendChild(scoreItem);
+}
+}
 // getting the data from opentdb.com
 fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
 // unpacking the jason file 
 .then(response =>  response.json() )
+.then(data => { const array1 = data.results.map((result) => { return {published: false,counter: 0, ...result} });
+   return array1;
+})
 
-.then(data =>  { 
+.then(array1 =>  { 
+  console.log(array1);
    // makeid generates a unique id to be added to the signle element in the object
    function makeid(length) {
     var result           = '';
@@ -30,35 +72,38 @@ function shuffle(answers){
         return answers;
 }  
 // validate checks if the answer is correct or incorrect and injects a class to the button to style and produce feedback
-function validate(idValue){
-  let elem = document.getElementById(idValue).innerHTML;
-   if(solutions.includes(elem)){
-      document.getElementById(idValue).classList.toggle('correct');
-      score ++ ;
-      let scoreItem = document.createElement('div');
-     if(document.getElementById('score') !== null){
+// function validate(idValue){
+//   let elem = document.getElementById(idValue).innerHTML;
+//    if(solutions.includes(elem)){
+//       document.getElementById(idValue).classList.toggle('correct');
+//       score ++ ;
+//       let scoreItem = document.createElement('div');
+//      if(document.getElementById('score') !== null){
+//       document.getElementById('score').remove();      
+//      }
+     
+//     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+//     document.body.appendChild(scoreItem);
       
-     };
-     // 
-    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-    document.body.appendChild(scoreItem);
-      
-   }else{
-    document.getElementById(idValue).classList.toggle('incorrect');
-   }
-}
-// function getScore(){
-  // if(document.getElementById('score')){
-// 
-  // }
+//    }else{
+//     document.getElementById(idValue).classList.toggle('incorrect');
+//     score-=0.5;
+//     let scoreItem = document.createElement('div');
+//     if(document.getElementById('score') !== null){
+//       document.getElementById('score').remove();
+//     }
+//     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+//     document.body.appendChild(scoreItem);
+//    }
 // }
 
 
+
   // for each object in the data we perform an action 
-    for (let i = 0; i < data.results.length; i++) {
+    for (let i = 0; i < array1.length; i++) {
  
-      let wrongAnswers = data.results[i].incorrect_answers;
-      let rightAnswer = data.results[i].correct_answer;
+      let wrongAnswers = array1[i].incorrect_answers;
+      let rightAnswer = array1[i].correct_answer;
         
         // creating an array of  all answers (no matter if correct or incorrect )
          wrongAnswers.push(rightAnswer);
@@ -67,7 +112,7 @@ function validate(idValue){
         shuffle(wrongAnswers);
         
         
-        let ques = data.results[i].question;
+        let ques = array1[i].question;
         
        
       
@@ -83,10 +128,10 @@ function validate(idValue){
         
         <h2>${ques}</h2><br>
         <div class="answer_container">
-          <button class="answer " id="${idArray[0]}">${wrongAnswers[0]}</button>
-          <button class="answer " id="${idArray[1]}">${wrongAnswers[1]}</button>
-          <button class="answer " id="${idArray[2]}">${wrongAnswers[2]}</button>
-          <button class="answer " id="${idArray[3]}">${wrongAnswers[3]}</button>
+          <button class="answer  ${[i]}" id="${idArray[0]}">${wrongAnswers[0]}</button>
+          <button class="answer  ${[i]}" id="${idArray[1]}">${wrongAnswers[1]}</button>
+          <button class="answer  ${[i]}" id="${idArray[2]}">${wrongAnswers[2]}</button>
+          <button class="answer  ${[i]}" id="${idArray[3]}">${wrongAnswers[3]}</button>
         </div>
         `;
         
