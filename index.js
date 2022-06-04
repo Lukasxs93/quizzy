@@ -10,34 +10,7 @@ function findSiblings(idValue){
       sibling = sibling.nextSibling;             
   }return siblings;
 }
-function validate(idValue){
-  let elem = document.getElementById(idValue).innerHTML;
-   if(solutions.includes(elem)){
-      document.getElementById(idValue).classList.toggle('correct');
-      score ++ ;
-      let scoreItem = document.createElement('div');
-      let siblings=findSiblings(idValue); 
-      for(let i = 0; i< siblings.length; i++){
-        document.getElementById(siblings[i]).disabled= true;
-      }      
-     if(document.getElementById('score') !== null){
-      document.getElementById('score').remove();      
-     }
-     
-    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-    document.body.appendChild(scoreItem);
-      
-   }else{
-    document.getElementById(idValue).classList.toggle('incorrect');
-    score-=0.5;
-    let scoreItem = document.createElement('div');
-    if(document.getElementById('score') !== null){
-      document.getElementById('score').remove();
-    }
-    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-    document.body.appendChild(scoreItem);
-}
-}
+
 // getting the data from opentdb.com
 fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
 // unpacking the jason file 
@@ -71,35 +44,42 @@ function shuffle(answers){
         }
         return answers;
 }  
-// validate checks if the answer is correct or incorrect and injects a class to the button to style and produce feedback
-// function validate(idValue){
-//   let elem = document.getElementById(idValue).innerHTML;
-//    if(solutions.includes(elem)){
-//       document.getElementById(idValue).classList.toggle('correct');
-//       score ++ ;
-//       let scoreItem = document.createElement('div');
-//      if(document.getElementById('score') !== null){
-//       document.getElementById('score').remove();      
-//      }
+function validate(idValue){
+  let elem = document.getElementById(idValue).innerHTML;
+   if(solutions.includes(elem)){
+      document.getElementById(idValue).classList.toggle('correct');
+      score ++ ;
+      let scoreItem = document.createElement('div');
+      let siblings=findSiblings(idValue); 
+      for(let i = 0; i< siblings.length; i++){
+        document.getElementById(siblings[i]).disabled= true;
+      }      
+     if(document.getElementById('score') !== null){
+      document.getElementById('score').remove();      
+     }
      
-//     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-//     document.body.appendChild(scoreItem);
+    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+    document.body.appendChild(scoreItem);
       
-//    }else{
-//     document.getElementById(idValue).classList.toggle('incorrect');
-//     score-=0.5;
-//     let scoreItem = document.createElement('div');
-//     if(document.getElementById('score') !== null){
-//       document.getElementById('score').remove();
-//     }
-//     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-//     document.body.appendChild(scoreItem);
-//    }
-// }
-
-
-
-  // for each object in the data we perform an action 
+   }else{
+    document.getElementById(idValue).classList.toggle('incorrect');    
+    score-=0.5;
+    let current = document.getElementById(idValue).classList[1];
+    array1[current].counter ++;
+    if(array1[current].counter >=2){
+      let siblings=findSiblings(idValue); 
+      for(let i = 0; i< siblings.length; i++){
+        document.getElementById(siblings[i]).disabled= true;
+      }    
+    }   
+    let scoreItem = document.createElement('div');
+    if(document.getElementById('score') !== null){
+      document.getElementById('score').remove();
+    }
+    scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
+    document.body.appendChild(scoreItem);
+}
+}
     for (let i = 0; i < array1.length; i++) {
  
       let wrongAnswers = array1[i].incorrect_answers;
