@@ -12,7 +12,7 @@ function findSiblings(idValue){
 }
 
 // getting the data from opentdb.com
-fetch('https://opentdb.com/api.php?amount=10&category=21&type=multiple')
+fetch('https://opentdb.com/api.php?amount=10&type=multiple')
 // unpacking the jason file 
 .then(response =>  response.json() )
 .then(data => { const array1 = data.results.map((result) => { return {published: false,counter: 0, ...result} });
