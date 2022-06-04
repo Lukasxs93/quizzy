@@ -1,5 +1,6 @@
 let solutions = [];
 let score=0;
+
 function findSiblings(idValue){
   let siblings = [];
        let sibling = document.getElementById(idValue).parentNode.firstChild;
@@ -10,9 +11,22 @@ function findSiblings(idValue){
       sibling = sibling.nextSibling;             
   }return siblings;
 }
+let startButton = document.createElement('div');
+startButton.id = 'startButton';
+startButton.innerHTML = `
+<h1>Wellcome to Quizzy</h1></br>
+<p>this is a little quiz game that you can play alone, or with friends</p>
+<p>the game is still under construction so, don't expect too much</p>
+<p>to start the game press the button </p>
+<button id="gameStarter"> START </button>
+`
 
+document.body.appendChild(startButton);
+document.getElementById('gameStarter').addEventListener('click',startGame,false);
+function startGame(){
+  document.getElementById('startButton').remove();
 // getting the data from opentdb.com
-fetch('https://opentdb.com/api.php?amount=10&type=multiple')
+fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
 // unpacking the jason file 
 .then(response =>  response.json() )
 .then(data => { const array1 = data.results.map((result) => { return {published: false,counter: 0, ...result} });
@@ -20,6 +34,11 @@ fetch('https://opentdb.com/api.php?amount=10&type=multiple')
 })
 
 .then(array1 =>  { 
+  let negativeS = new Audio('negative.wav');
+  let positiveS = new Audio('positive.wav');
+  let scoreItem = document.createElement('div');
+  scoreItem.innerHTML = `<h1 id="score">This game Score:${score}</h1>`;
+  document.body.appendChild(scoreItem);
   console.log(array1);
    // makeid generates a unique id to be added to the signle element in the object
    function makeid(length) {
@@ -45,15 +64,19 @@ function shuffle(answers){
         return answers;
 }  
 function validate(idValue){
+  
   let elem = document.getElementById(idValue).innerHTML;
    if(solutions.includes(elem)){
       document.getElementById(idValue).classList.toggle('correct');
+      positiveS.play();
+      
       score ++ ;
       let scoreItem = document.createElement('div');
       let siblings=findSiblings(idValue); 
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
       }      
+      document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
      if(document.getElementById('score') !== null){
       document.getElementById('score').remove();      
      }
@@ -63,7 +86,7 @@ function validate(idValue){
       
    }else{
     document.getElementById(idValue).classList.toggle('incorrect');    
-    score-=0.5;
+    negativeS.play();
     let current = document.getElementById(idValue).classList[1];
     array1[current].counter ++;
     if(array1[current].counter >=2){
@@ -71,6 +94,7 @@ function validate(idValue){
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
       }    
+      document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
     }   
     let scoreItem = document.createElement('div');
     if(document.getElementById('score') !== null){
@@ -106,7 +130,7 @@ function validate(idValue){
         //class "answer_container", every answer has a class "answer " and unique id given by idArray.
         questionItem.innerHTML =`
         
-        <h2>${ques}</h2><br>
+        <h2 id="question${[i]}">${ques}</h2><br>
         <div class="answer_container">
           <button class="answer  ${[i]}" id="${idArray[0]}">${wrongAnswers[0]}</button>
           <button class="answer  ${[i]}" id="${idArray[1]}">${wrongAnswers[1]}</button>
@@ -128,7 +152,7 @@ function validate(idValue){
     
 
 } )
-
+}
 
 
 fetch('https://opentdb.com/api.php?amount=10')
