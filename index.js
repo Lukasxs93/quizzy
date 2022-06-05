@@ -11,6 +11,16 @@ function findSiblings(idValue){
       sibling = sibling.nextSibling;             
   }return siblings;
 }
+function scroll(id,array1,score){
+  if(document.getElementById(id).classList[1]!= array1.length-1){  
+    document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+    }else{
+      let finalScore = document.createElement('div');
+      finalScore.className = 'finalScore'
+      finalScore.innerHTML = `<h1 class="finalScoreText">your final score is : ${score}</h1>`;
+      document.body.appendChild(finalScore);
+    }
+}
 let startButton = document.createElement('div');
 startButton.id = 'startButton';
 startButton.innerHTML = `
@@ -68,22 +78,22 @@ function validate(idValue){
   let elem = document.getElementById(idValue).innerHTML;
    if(solutions.includes(elem)){
       document.getElementById(idValue).classList.toggle('correct');
-      positiveS.play();
-      
+      positiveS.play();      
       score ++ ;
       let scoreItem = document.createElement('div');
       let siblings=findSiblings(idValue); 
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
-      }      
-      document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+      } 
+      scroll(idValue, array1,score);
+      // if(document.getElementById(idValue).classList[1]!= array1.length-1){     
+      // document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+      // }
      if(document.getElementById('score') !== null){
       document.getElementById('score').remove();      
-     }
-     
+     }     
     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-    document.body.appendChild(scoreItem);
-      
+    document.body.appendChild(scoreItem);      
    }else{
     document.getElementById(idValue).classList.toggle('incorrect');    
     negativeS.play();
@@ -93,8 +103,11 @@ function validate(idValue){
       let siblings=findSiblings(idValue); 
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
-      }    
-      document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+      }  
+      scroll(idValue,array1,score);
+      // if(document.getElementById(idValue).classList[1]!= array1.length-1){  
+      // document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+      // }
     }   
     let scoreItem = document.createElement('div');
     if(document.getElementById('score') !== null){
