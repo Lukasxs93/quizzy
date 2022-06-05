@@ -1,36 +1,40 @@
 body{
-    background-color: rgb(53, 48, 48);
-    padding-top: 10%;
+    background-color: rgb(53, 48, 48);    
     display:flex;
     flex-direction: column;
+    align-items: center;
+    
+    background-image: url('https://cdn.eso.org/images/newsfeature/eso1213a.jpg');
+    font-family: 'Roboto', sans-serif;
     
 }
 #startButton{ 
     align-self: center;
-    
+    margin-top: 20%;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     width: 800px;
     padding:30px;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;  
     font-weight: 900;
     color:rgb(255, 255, 255); 
-    border-radius:10px;
+    border-radius:50px;
     background: repeating-linear-gradient(
         
         45deg,
-        #000000,
-        #000000 30px,
+        #000000a6,
+        #000000a7 30px,
         #b9be18d2 30px,
-        #a5aa2b 60px
+        #a6aa2baa 60px
       );
 }
 #startButton > button{
  width: 100px;
  height: 100px;
  border-radius: 50%;
- background-color: red;
+ background-color: rgb(255, 0, 0);
  color:white;
+ font-family: 'Roboto', sans-serif;
+ font-weight: 900;
 }
 .correct{
     background-color: rgb(69, 243, 69);
@@ -41,13 +45,14 @@ body{
 .question{
     display: flex ; 
     flex-direction: column;
-    margin-bottom: 455px;
+    height: 400px;
+    margin-top:236px;    
+    margin-bottom:118px;
     padding:40px;
     margin-left: 10%;
     margin-right:10%;
     border-radius:20px;
-    background: repeating-linear-gradient(
-        
+    background: repeating-linear-gradient(        
         45deg,
         #000000,
         #000000 30px,
@@ -59,13 +64,12 @@ body{
 .question > h2{
     text-align: center;
     width: 70%;
-    margin: auto;
+    margin: auto;   
     padding:2%;
     border-radius: 10px;;
     background-color: yellow;
     color:rgb(58, 56, 56);
-    margin-bottom: 5%;
-    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 5%;    
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 .answer_container{
@@ -93,15 +97,43 @@ body{
    width: 500px; 
    top:0;  
    left:50%;
-   margin-left:-250px;
-   border:solid blue 3px;
+   margin-left:-250px;  
    text-align: center;
-   
+   color:white;
+   font-weight: 900;
     
 }
 .finalScore{
- margin:auto;
- position:relative;
- top:-400px;
+ margin-top: 30%;
+ color:white;
 
 }
+@media only screen and (max-width: 1200px){
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 600px){
+	/*Big smartphones [426px -> 600px]*/
+}
+@media only screen and (max-width: 375px){
+	.question{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: smaller;
+        margin-bottom:20%;
+        height: 500px;
+    }
+    .answer_container{
+        justify-content: center;
+        grid-row-gap: auto;
+    }
+    .answer{
+        width: 135px;
+    }
+    #score{
+        position:fixed;
+        top:-20px;
+        border:none;
+    }
+}
+

@@ -15,10 +15,15 @@ function scroll(id,array1,score){
   if(document.getElementById(id).classList[1]!= array1.length-1){  
     document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
     }else{
-      let finalScore = document.createElement('div');
+      let finalScore = document.createElement('div'); 
+      document.getElementById('score').remove();      
+      for(let i=0; i<array1.length;i++){
+        document.getElementById(`questionItem${i}`).remove();
+      }   
       finalScore.className = 'finalScore'
       finalScore.innerHTML = `<h1 class="finalScoreText">your final score is : ${score}</h1>`;
       document.body.appendChild(finalScore);
+
     }
 }
 let startButton = document.createElement('div');
@@ -36,10 +41,10 @@ document.getElementById('gameStarter').addEventListener('click',startGame,false)
 function startGame(){
   document.getElementById('startButton').remove();
 // getting the data from opentdb.com
-fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
+fetch('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
 // unpacking the jason file 
 .then(response =>  response.json() )
-.then(data => { const array1 = data.results.map((result) => { return {published: false,counter: 0, ...result} });
+.then(data => { const array1 = data.results.map((result) => { return {counter: 0, ...result} });
    return array1;
 })
 
@@ -47,7 +52,7 @@ fetch('https://opentdb.com/api.php?amount=10&difficulty=easy')
   let negativeS = new Audio('negative.wav');
   let positiveS = new Audio('positive.wav');
   let scoreItem = document.createElement('div');
-  scoreItem.innerHTML = `<h1 id="score">This game Score:${score}</h1>`;
+  scoreItem.innerHTML = `<h1 id="score">${score}</h1>`;
   document.body.appendChild(scoreItem);
   console.log(array1);
    // makeid generates a unique id to be added to the signle element in the object
@@ -85,7 +90,7 @@ function validate(idValue){
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
       } 
-      scroll(idValue, array1,score);
+      
       // if(document.getElementById(idValue).classList[1]!= array1.length-1){     
       // document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
       // }
@@ -93,18 +98,19 @@ function validate(idValue){
       document.getElementById('score').remove();      
      }     
     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
-    document.body.appendChild(scoreItem);      
+    document.body.appendChild(scoreItem); 
+    scroll(idValue, array1,score);     
    }else{
     document.getElementById(idValue).classList.toggle('incorrect');    
     negativeS.play();
     let current = document.getElementById(idValue).classList[1];
-    array1[current].counter ++;
+    array1[current].counter ++;    
     if(array1[current].counter >=2){
       let siblings=findSiblings(idValue); 
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
       }  
-      scroll(idValue,array1,score);
+     
       // if(document.getElementById(idValue).classList[1]!= array1.length-1){  
       // document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
       // }
@@ -115,6 +121,7 @@ function validate(idValue){
     }
     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
     document.body.appendChild(scoreItem);
+    scroll(idValue, array1,score);
 }
 }
     for (let i = 0; i < array1.length; i++) {
@@ -134,7 +141,7 @@ function validate(idValue){
        
       
         let questionItem = document.createElement('div');
-       
+       questionItem.id =`questionItem${i}`;
         questionItem.className='question';
        //generating an array of 4 ids to be assigned to each answer. 
         var idArray = [makeid(5),makeid(5),makeid(5),makeid(5)]
