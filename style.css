@@ -128,7 +128,7 @@ body{
 @media only screen and (max-width: 600px){
 	/*Big smartphones [426px -> 600px]*/
 }
-@media only screen and (max-width: 375px){
+@media only screen and (max-width: 390px){
     #score{
         display:none;
     }
@@ -137,7 +137,7 @@ body{
         width: 200px;
         height: auto;
         font-size: medium;
-        margin-top:70px;
+        margin-top:100px;
     }
     .question_wrapper{
         height: 667px;
