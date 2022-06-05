@@ -2,20 +2,25 @@ body{
     background-color: rgb(53, 48, 48);    
     display:flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;    
     background-image: url('https://cdn.eso.org/images/newsfeature/eso1213a.jpg');
     font-family: 'Roboto', sans-serif;
     
 }
 #startButton{ 
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     align-self: center;
-    margin-top: 20%;
+    margin-top:150px;    
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    width: 800px;
+    width: 80%;
+    height: 500px;
     padding:30px;
     text-align: center;  
     font-weight: 900;
+    font-size: xx-large;
     color:rgb(255, 255, 255); 
     border-radius:50px;
     background: repeating-linear-gradient(
@@ -42,11 +47,19 @@ body{
 .incorrect{
     background-color: red;
 }
+.question_wrapper{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    }
 .question{
     display: flex ; 
     flex-direction: column;
-    height: 400px;
-    margin-top:236px;    
+    height: 400px;   
+    width: 80%; 
     margin-bottom:118px;
     padding:40px;
     margin-left: 10%;
@@ -92,7 +105,7 @@ body{
 
 }
 #score{
-   
+   display:none;
    position:fixed;
    width: 500px; 
    top:0;  
@@ -104,8 +117,9 @@ body{
     
 }
 .finalScore{
- margin-top: 30%;
+ margin-top: 22%;
  color:white;
+ font-size: xx-large;
 
 }
 @media only screen and (max-width: 1200px){
@@ -115,13 +129,37 @@ body{
 	/*Big smartphones [426px -> 600px]*/
 }
 @media only screen and (max-width: 375px){
+    #score{
+        display:none;
+    }
+    
+    #startButton{
+        width: 200px;
+    }
+    .question_wrapper{
+        height: 667px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        }
 	.question{
+        margin:0;
+        flex-shrink: 0;
         display:flex;
         flex-direction: column;
         align-items: center;
-        font-size: smaller;
-        margin-bottom:20%;
-        height: 500px;
+        font-size: smaller;        
+        
+        
+    }
+    body{
+        padding:0;
+        display:flex;    
+        flex-direction: column;
+        justify-content: space-between;
+        
+                
     }
     .answer_container{
         justify-content: center;

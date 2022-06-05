@@ -13,7 +13,7 @@ function findSiblings(idValue){
 }
 function scroll(id,array1,score){
   if(document.getElementById(id).classList[1]!= array1.length-1){  
-    document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
+    document.documentElement.scrollBy({top:window.innerHeight ,behavior:"smooth"});
     }else{
       let finalScore = document.createElement('div'); 
       document.getElementById('score').remove();      
@@ -30,9 +30,9 @@ let startButton = document.createElement('div');
 startButton.id = 'startButton';
 startButton.innerHTML = `
 <h1>Wellcome to Quizzy</h1></br>
-<p>this is a little quiz game that you can play alone, or with friends</p>
-<p>the game is still under construction so, don't expect too much</p>
-<p>to start the game press the button </p>
+<p>this is a little quiz game that you can play alone, or with friends,<br>
+the game is still under construction so, don't expect too much<br>
+to start the game press the button </p>
 <button id="gameStarter"> START </button>
 `
 
@@ -142,20 +142,21 @@ function validate(idValue){
       
         let questionItem = document.createElement('div');
        questionItem.id =`questionItem${i}`;
-        questionItem.className='question';
+        questionItem.className='question_wrapper';
        //generating an array of 4 ids to be assigned to each answer. 
         var idArray = [makeid(5),makeid(5),makeid(5),makeid(5)]
         
         //generating html that displays a question and 4 andswers, the question has  calss "question" while the div containint the answers has 
         //class "answer_container", every answer has a class "answer " and unique id given by idArray.
         questionItem.innerHTML =`
-        
+        <div class='question'>
         <h2 id="question${[i]}">${ques}</h2><br>
         <div class="answer_container">
           <button class="answer  ${[i]}" id="${idArray[0]}">${wrongAnswers[0]}</button>
           <button class="answer  ${[i]}" id="${idArray[1]}">${wrongAnswers[1]}</button>
           <button class="answer  ${[i]}" id="${idArray[2]}">${wrongAnswers[2]}</button>
           <button class="answer  ${[i]}" id="${idArray[3]}">${wrongAnswers[3]}</button>
+        </div>
         </div>
         `;
         
