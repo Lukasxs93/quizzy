@@ -1,6 +1,7 @@
 let solutions = [];
 let score=0;
-
+let number=10;
+let category;
 function findSiblings(idValue){
   let siblings = [];
        let sibling = document.getElementById(idValue).parentNode.firstChild;
@@ -33,15 +34,41 @@ startButton.innerHTML = `
 <p>this is a little quiz game that you can play alone, or with friends,<br>
 the game is still under construction so, don't expect too much<br>
 to start the game press the button </p>
+<div id="selectionContainer">
+<label for="number">number of questions</label>
+<input type="number" name="number" id="number" max="40" placeholder="10">
+<label for="category">category</label>
+<select name="category" id="category">
+<option value="15">Videogames</option>
+<option value="21">Sports</option>
+<option value="23">History</option>
+<option value="26">Celebrities</option>
+<option value="17">SCience & Nature</option>
+</select>
+</div>
 <button id="gameStarter"> START </button>
 `
 
 document.body.appendChild(startButton);
+document.getElementById('number').addEventListener('change', (e)=>{
+number = document.getElementById('number').value;
+  return number;
+})
+document.getElementById('category').addEventListener('change', (e)=>{
+  category =document.getElementById('category').value;
+})
 document.getElementById('gameStarter').addEventListener('click',startGame,false);
 function startGame(){
+  console.log(number);
+  if(number === undefined){
+    return number = 10;    
+  }
+  if(category === undefined){
+    category = 15;
+  }
   document.getElementById('startButton').remove();
 // getting the data from opentdb.com
-fetch('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple')
+fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficulty=easy&type=multiple`)
 // unpacking the jason file 
 .then(response =>  response.json() )
 .then(data => { const array1 = data.results.map((result) => { return {counter: 0, ...result} });
@@ -49,6 +76,8 @@ fetch('https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=mul
 })
 
 .then(array1 =>  { 
+ 
+  console.log(category);
   let negativeS = new Audio('negative.wav');
   let positiveS = new Audio('positive.wav');
   let scoreItem = document.createElement('div');
@@ -176,5 +205,4 @@ function validate(idValue){
 }
 
 
-fetch('https://opentdb.com/api.php?amount=10')
-.then(data => console.log(data.json()))
+
