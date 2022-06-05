@@ -135,6 +135,9 @@ body{
     
     #startButton{
         width: 200px;
+        height: auto;
+        font-size: medium;
+        margin-top:70px;
     }
     .question_wrapper{
         height: 667px;
