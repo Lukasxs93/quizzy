@@ -110,7 +110,7 @@ function validate(idValue){
       for(let i = 0; i< siblings.length; i++){
         document.getElementById(siblings[i]).disabled= true;
       }  
-     
+      scroll(idValue, array1,score);
       // if(document.getElementById(idValue).classList[1]!= array1.length-1){  
       // document.documentElement.scrollBy({top:window.innerHeight,behavior:"smooth"});
       // }
@@ -121,7 +121,7 @@ function validate(idValue){
     }
     scoreItem.innerHTML=`<h1 id="score">${score}</h1>`;
     document.body.appendChild(scoreItem);
-    scroll(idValue, array1,score);
+    
 }
 }
     for (let i = 0; i < array1.length; i++) {
