@@ -59,7 +59,7 @@ document.getElementById('category').addEventListener('change', (e)=>{
 })
 document.getElementById('gameStarter').addEventListener('click',startGame,false);
 function startGame(){
-  console.log(number);
+  
   if(number === undefined){
     return number = 10;    
   }
@@ -77,13 +77,13 @@ fetch(`https://opentdb.com/api.php?amount=${number}&category=${category}&difficu
 
 .then(array1 =>  { 
  
-  console.log(category);
+  
   let negativeS = new Audio('negative.wav');
   let positiveS = new Audio('positive.wav');
   let scoreItem = document.createElement('div');
   scoreItem.innerHTML = `<h1 id="score">${score}</h1>`;
   document.body.appendChild(scoreItem);
-  console.log(array1);
+  
    // makeid generates a unique id to be added to the signle element in the object
    function makeid(length) {
     var result           = '';
