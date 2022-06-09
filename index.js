@@ -2,6 +2,7 @@ let solutions = [];
 let score=0;
 let number=10;
 let category;
+let counter =0;
 function findSiblings(idValue){
   let siblings = [];
        let sibling = document.getElementById(idValue).parentNode.firstChild;
@@ -27,6 +28,32 @@ function scroll(id,array1,score){
 
     }
 }
+function fifty(id1,id2,id3,id4, array1){
+
+  let answers =[];
+  let wrong =[];
+  let current = document.getElementById(id1).classList[1];
+  if(counter >= 2){
+    document.getElementById(`helper${current}`).disabled = true;
+  }else{
+  counter = counter+1;
+  console.log(counter);  
+  console.log(current);
+  answers.push(id1,id2,id3,id4); 
+  for(let i =0; i<answers.length;i++){
+    if(document.getElementById(answers[i]).innerHTML != array1[current].correct_answer){
+      wrong.push(answers[i]);
+      
+    }
+  }  
+  for(let i = 0; i<2; i++){
+    document.getElementById(wrong[i]).disabled = true;
+  }
+  
+}
+}
+
+
 let startButton = document.createElement('div');
 startButton.id = 'startButton';
 startButton.innerHTML = `
@@ -180,12 +207,16 @@ function validate(idValue){
         questionItem.innerHTML =`
         <div class='question'>
         <h2 id="question${[i]}">${ques}</h2><br>
-        <div class="answer_container">
-          <button class="answer  ${[i]}" id="${idArray[0]}">${wrongAnswers[0]}</button>
-          <button class="answer  ${[i]}" id="${idArray[1]}">${wrongAnswers[1]}</button>
-          <button class="answer  ${[i]}" id="${idArray[2]}">${wrongAnswers[2]}</button>
-          <button class="answer  ${[i]}" id="${idArray[3]}">${wrongAnswers[3]}</button>
-        </div>
+         <div class="answer_container">
+           <button class="answer  ${[i]}" id="${idArray[0]}">${wrongAnswers[0]}</button>
+           <button class="answer  ${[i]}" id="${idArray[1]}">${wrongAnswers[1]}</button>
+           <button class="answer  ${[i]}" id="${idArray[2]}">${wrongAnswers[2]}</button>
+           <button class="answer  ${[i]}" id="${idArray[3]}">${wrongAnswers[3]}</button>
+         </div>
+         <div class="helperContainer">
+         <button class="helpers ${i}" id="helper${i}">50/50</button>
+        
+         </div>
         </div>
         `;
         
@@ -196,7 +227,7 @@ function validate(idValue){
         document.getElementById(idArray[1]).addEventListener('click',validate.bind(this,idArray[1]),false);
         document.getElementById(idArray[2]).addEventListener('click',validate.bind(this,idArray[2]),false);
         document.getElementById(idArray[3]).addEventListener('click',validate.bind(this,idArray[3]),false);
-       
+       document.getElementById(`helper${i}`).addEventListener('click', fifty.bind(this,idArray[0],idArray[1],idArray[2],idArray[3], array1),false)
     }  
   
     
