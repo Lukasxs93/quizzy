@@ -31,7 +31,6 @@ function scroll(id, array1, score) {
 		finalScore.innerHTML = `<h1 class="finalScoreText">your final score is : ${score}</h1>`;
 		document.body.appendChild(finalScore);
 	}
-
 }
 function fifty(id1, id2, id3, id4, array1) {
 	let answers = [];
@@ -56,7 +55,6 @@ function fifty(id1, id2, id3, id4, array1) {
 			document.getElementById(wrong[i]).disabled = true;
 		}
 	}
-
 }
 
 let startButton = document.createElement('div');
@@ -68,7 +66,7 @@ the game is still under construction so, don't expect too much<br>
 to start the game press the button </p>
 <div id="selectionContainer">
 <label for="number">number of questions</label>
-<input type="number" name="number" id="number" max="40" placeholder="10">
+<input type="number" name="number" id="number" max="40" min="1" placeholder="10">
 <label for="category">category</label>
 <select name="category" id="category">
 <option value="15">Videogames</option>
@@ -108,14 +106,11 @@ function startGame() {
 		})
 
 		.then((array1) => {
-
 			let negativeS = new Audio('negative.wav');
 			let positiveS = new Audio('positive.wav');
 			let scoreItem = document.createElement('div');
 			scoreItem.innerHTML = `<h1 id="score">${score}</h1>`;
 			document.body.appendChild(scoreItem);
-
-
 
 			// makeid generates a unique id to be added to the signle element in the object
 			function makeid(length) {
@@ -259,7 +254,6 @@ function startGame() {
 						),
 						false
 					);
-
 			}
 		});
 }
