@@ -2,6 +2,7 @@ let solutions = [];
 let score=0;
 let number=10;
 let category;
+
 function findSiblings(idValue){
   let siblings = [];
        let sibling = document.getElementById(idValue).parentNode.firstChild;
@@ -43,7 +44,7 @@ to start the game press the button </p>
 <option value="21">Sports</option>
 <option value="23">History</option>
 <option value="26">Celebrities</option>
-<option value="17">SCience & Nature</option>
+<option value="17">Science & Nature</option>
 </select>
 </div>
 <button id="gameStarter"> START </button>
@@ -107,6 +108,10 @@ function shuffle(answers){
         }
         return answers;
 }  
+
+function changeColor {
+  
+}
 function validate(idValue){
   
   let elem = document.getElementById(idValue).innerHTML;
