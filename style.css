@@ -26,13 +26,13 @@ body {
 	font-size: large;
 	color: rgb(255, 255, 255);
 	border-radius: 50px;
-	background: repeating-linear-gradient(
-		45deg,
-		#000000a6,
-		#000000a7 30px,
-		#b9be18d2 30px,
-		#a6aa2baa 60px
-	);
+	
+	background: rgba( 101, 244, 213, 0.15 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 20px );
+-webkit-backdrop-filter: blur( 20px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 #selectionContainer {
 	display: grid;
@@ -97,16 +97,12 @@ input[type='number']::placeholder {
 	margin-left: 10%;
 	margin-right: 10%;
 	border-radius: 20px;
-	background: repeating-linear-gradient(
-		45deg,
-		#000000,
-		#000000 30px,
-		#b9be18d2 30px,
-		#a5aa2b 60px
-	);
-	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-		rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-		rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+	background: rgba( 101, 244, 213, 0.15 );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	backdrop-filter: blur( 20px );
+	-webkit-backdrop-filter: blur( 20px );
+	border-radius: 10px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .question > h2 {
 	text-align: center;
